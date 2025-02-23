@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 	},
 	body: {
-		lineHeight: 30,
+		lineHeight: 24,
 		fontSize: 16,
 	},
 	label: {
