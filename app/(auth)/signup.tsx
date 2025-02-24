@@ -1,26 +1,27 @@
 import { Pressable, StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
+import { SignupStep } from "@/screens/signup/signup.type"
+import { signupSteps } from "@/screens/signup/constants"
 
 export default function SignupScreen() {
+	const [step, setStep] = useState<SignupStep>("signup")
+
+	const currentStep = signupSteps[step]
+
+	const gotoVerify = () => {
+		setStep("verify-mail")
+	}
 	return (
 		<Fragment>
 			<View style={styles.header}>
-				<XText variant='header'>sign up to xtrackr</XText>
+				<XText variant='header'>{currentStep.title}</XText>
 				<CloseModalButton />
 			</View>
-			<Input label='Email' placeholder='enter email' />
-			<Input
-				label='Password'
-				secureTextEntry={true}
-				placeholder='enter your password'
-			/>
-			<Pressable style={styles.button}>
-				<XText style={styles.buttonText}>signup</XText>
-			</Pressable>
+			{currentStep.component({ setStep })}
 		</Fragment>
 	)
 }
