@@ -47,7 +47,56 @@ export default function HomeScreen() {
 						})}
 					</View>
 
-					<XText blurred={true}>total statistics</XText>
+					<XText blurred={true} style={{ marginBottom: 16 }}>
+						total statistics
+					</XText>
+					<Row
+						items={[
+							{
+								title: "23 subscriptions",
+								description: "number of active subscriptions",
+								id: "active-subscriptions",
+							},
+						]}
+					/>
+
+					<Row
+						items={[
+							{
+								title: "$2,500",
+								description: "monthly payment",
+								id: "monthly-payment",
+							},
+							{
+								title: "4",
+								description: "subscriptions",
+								id: "monthly-subscriptions",
+							},
+						]}
+					/>
+					<Row
+						items={[
+							{
+								title: "$12,500",
+								description: "yearly payment",
+								id: "yearly-payment",
+							},
+							{
+								title: "13",
+								description: "subscriptions",
+								id: "yearly-subscriptions",
+							},
+						]}
+					/>
+					<Row
+						items={[
+							{
+								title: "$1028",
+								description: "most expensive subscription (linkedin)",
+								id: "most-expensive-sub",
+							},
+						]}
+					/>
 					<XText blurred={true}>summary</XText>
 					<View>
 						<XText>save $4</XText>
@@ -79,6 +128,33 @@ const Label = (props: ExpenseCategory) => {
 			<XText variant='body' style={{ opacity: 0.64 }}>
 				{label}
 			</XText>
+		</View>
+	)
+}
+
+interface Item {
+	id: string
+	title: string
+	description: string
+}
+const Row = ({ items }: { items: Item[] }) => {
+	return (
+		<View style={styles.row}>
+			{items.map((item, index) => {
+				const isOdd = index % 2 === 1
+				return (
+					<View key={item.id}>
+						<XText style={[isOdd && { textAlign: "right" }]}>
+							{item.title}
+						</XText>
+						<XText
+							variant='body'
+							style={[styles.rowBody, isOdd && { textAlign: "right" }]}>
+							{item.description}
+						</XText>
+					</View>
+				)
+			})}
 		</View>
 	)
 }
@@ -158,5 +234,16 @@ const styles = StyleSheet.create({
 	label: {
 		flexDirection: "row",
 		alignItems: "center",
+	},
+	row: {
+		marginVertical: 16,
+		borderBottomWidth: 1,
+		borderBottomColor: "#2C2B35",
+		paddingBottom: 16,
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	rowBody: {
+		opacity: 0.64,
 	},
 })
