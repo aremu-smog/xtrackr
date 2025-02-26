@@ -23,7 +23,7 @@ export const tabs: TabItem[] = [
 		icon: require("@/assets/images/tab/list.png"),
 	},
 	{
-		name: "explore",
+		name: "settings",
 		activeIcon: require("@/assets/images/tab/settings-active.png"),
 		icon: require("@/assets/images/tab/settings.png"),
 	},

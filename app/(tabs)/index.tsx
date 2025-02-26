@@ -9,7 +9,10 @@ export default function HomeScreen() {
 	return (
 		<PageWrapper>
 			<Header />
-			<ScrollView style={styles.werapper} showsVerticalScrollIndicator={false}>
+			<ScrollView
+				contentContainerStyle={{ paddingBottom: 100 }}
+				style={styles.werapper}
+				showsVerticalScrollIndicator={false}>
 				<XText blurred={true}>spending chart ($)</XText>
 
 				<View style={styles.chartWrapper}>
@@ -189,6 +192,7 @@ const highestExpense = [...expenseCategories].sort((a, b) => {
 const styles = StyleSheet.create({
 	werapper: {
 		flex: 1,
+		paddingBottom: 500,
 	},
 	graph: {
 		width: "100%",
