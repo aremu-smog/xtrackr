@@ -1,113 +1,109 @@
 import { Header } from "@/components/Header"
+import { PageWrapper } from "@/components/PageWrapper"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
-import { BlurView } from "expo-blur"
 import { LinearGradient } from "expo-linear-gradient"
-import { Image, SafeAreaView, ScrollView, StyleSheet, View } from "react-native"
+import { ScrollView, StyleSheet, View } from "react-native"
 
 export default function HomeScreen() {
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
-			<View style={{ flex: 1, paddingHorizontal: 20 }}>
-				<Header />
-				<ScrollView
-					style={styles.werapper}
-					showsVerticalScrollIndicator={false}>
-					<XText blurred={true}>spending chart ($)</XText>
+		<PageWrapper>
+			<Header />
+			<ScrollView style={styles.werapper} showsVerticalScrollIndicator={false}>
+				<XText blurred={true}>spending chart ($)</XText>
 
-					<View style={styles.chartWrapper}>
-						{expenseCategories.map(category => {
-							const barHeight = (category.amount / highestExpense.amount) * 100
-							return (
-								<LinearGradient
-									key={`expense-bar-${category.label}`}
-									colors={[category.color, category.color2]}
-									start={{ y: 0.2, x: 0.5 }}
-									style={[
-										styles.bar,
-										{
-											height: `${barHeight}%`,
-										},
-									]}>
-									<XText variant='body' style={{ textAlign: "center" }}>
-										{category.amount}
-									</XText>
-								</LinearGradient>
-							)
-						})}
-					</View>
-					<View style={styles.labels}>
-						{expenseCategories.map(expenseCategory => {
-							return (
-								<Label
-									key={`expense-label-${expenseCategory.label}`}
-									{...expenseCategory}
-								/>
-							)
-						})}
-					</View>
+				<View style={styles.chartWrapper}>
+					{expenseCategories.map(category => {
+						const barHeight = (category.amount / highestExpense.amount) * 100
+						return (
+							<LinearGradient
+								key={`expense-bar-${category.label}`}
+								colors={[category.color, category.color2]}
+								start={{ y: 0.2, x: 0.5 }}
+								style={[
+									styles.bar,
+									{
+										height: `${barHeight}%`,
+									},
+								]}>
+								<XText variant='body' style={{ textAlign: "center" }}>
+									{category.amount}
+								</XText>
+							</LinearGradient>
+						)
+					})}
+				</View>
+				<View style={styles.labels}>
+					{expenseCategories.map(expenseCategory => {
+						return (
+							<Label
+								key={`expense-label-${expenseCategory.label}`}
+								{...expenseCategory}
+							/>
+						)
+					})}
+				</View>
 
-					<XText blurred={true} style={{ marginBottom: 16 }}>
-						total statistics
+				<XText blurred={true} style={{ marginBottom: 16 }}>
+					total statistics
+				</XText>
+				<Row
+					items={[
+						{
+							title: "23 subscriptions",
+							description: "number of active subscriptions",
+							id: "active-subscriptions",
+						},
+					]}
+				/>
+
+				<Row
+					items={[
+						{
+							title: "$2,500",
+							description: "monthly payment",
+							id: "monthly-payment",
+						},
+						{
+							title: "4",
+							description: "subscriptions",
+							id: "monthly-subscriptions",
+						},
+					]}
+				/>
+				<Row
+					items={[
+						{
+							title: "$12,500",
+							description: "yearly payment",
+							id: "yearly-payment",
+						},
+						{
+							title: "13",
+							description: "subscriptions",
+							id: "yearly-subscriptions",
+						},
+					]}
+				/>
+				<Row
+					items={[
+						{
+							title: "$1028",
+							description: "most expensive subscription (linkedin)",
+							id: "most-expensive-sub",
+						},
+					]}
+				/>
+				<XText blurred={true}>summary</XText>
+				<View>
+					<XText>save $4</XText>
+					<XText variant='body'>
+						we identified 3 similar entertainment subscriptions - Netflix,
+						Disney+ and Amazon Prime. cancel 2 out of 3 to save $4.
 					</XText>
-					<Row
-						items={[
-							{
-								title: "23 subscriptions",
-								description: "number of active subscriptions",
-								id: "active-subscriptions",
-							},
-						]}
-					/>
-
-					<Row
-						items={[
-							{
-								title: "$2,500",
-								description: "monthly payment",
-								id: "monthly-payment",
-							},
-							{
-								title: "4",
-								description: "subscriptions",
-								id: "monthly-subscriptions",
-							},
-						]}
-					/>
-					<Row
-						items={[
-							{
-								title: "$12,500",
-								description: "yearly payment",
-								id: "yearly-payment",
-							},
-							{
-								title: "13",
-								description: "subscriptions",
-								id: "yearly-subscriptions",
-							},
-						]}
-					/>
-					<Row
-						items={[
-							{
-								title: "$1028",
-								description: "most expensive subscription (linkedin)",
-								id: "most-expensive-sub",
-							},
-						]}
-					/>
-					<XText blurred={true}>summary</XText>
-					<View>
-						<XText>save $4</XText>
-						<XText variant='body'>
-							we identified 3 similar entertainment subscriptions - Netflix,
-							Disney+ and Amazon Prime. cancel 2 out of 3 to save $4.
-						</XText>
-					</View>
-				</ScrollView>
-			</View>
-		</SafeAreaView>
+				</View>
+			</ScrollView>
+		</PageWrapper>
 	)
 }
 

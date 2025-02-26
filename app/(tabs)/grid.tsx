@@ -1,13 +1,11 @@
-import { ThemedText } from "@/components/ThemedText"
-import { Link } from "expo-router"
-import { View } from "react-native"
+import { Header } from "@/components/Header"
+import { PageWrapper } from "@/components/PageWrapper"
+import { SafeAreaView, View } from "react-native"
 
 export default function TabTwoScreen() {
 	return (
-		<View style={{ backgroundColor: "red", marginTop: 200 }}>
-			<Link href='/'>
-				<ThemedText type='defaultSemiBold'>Splash Screen</ThemedText>
-			</Link>
-		</View>
+		<PageWrapper>
+			<Header />
+		</PageWrapper>
 	)
 }
