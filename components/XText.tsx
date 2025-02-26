@@ -1,14 +1,44 @@
 import { colors } from "@/constants/Colors"
-import { Text, type TextProps, StyleSheet } from "react-native"
+import { BlurView } from "expo-blur"
+import { Fragment, ReactNode } from "react"
+import { Text, type TextProps, StyleSheet, View } from "react-native"
 
 type TextVariant = "header" | "title" | "body" | "label"
 export type XTextProps = TextProps & {
 	variant?: TextVariant
+	blurred?: Boolean
 }
 
-export function XText({ variant = "header", style, ...rest }: XTextProps) {
+export function XText({
+	variant = "header",
+	blurred = false,
+	style,
+	...rest
+}: XTextProps) {
+	const Wrapper = blurred ? TextBlur : Fragment
 	return (
-		<Text style={[styles.default, styleWithType[variant], style]} {...rest} />
+		<Wrapper>
+			<Text style={[styles.default, styleWithType[variant], style]} {...rest} />
+		</Wrapper>
+	)
+}
+
+const TextBlur = ({ children }: { children: ReactNode }) => {
+	return (
+		<View style={{ position: "relative" }}>
+			{children}
+			<BlurView
+				intensity={4}
+				style={{
+					backgroundColor: "transparent",
+					position: "absolute",
+					left: 0,
+					top: 0,
+					height: "100%",
+					width: "100%",
+				}}
+			/>
+		</View>
 	)
 }
 

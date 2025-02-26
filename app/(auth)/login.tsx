@@ -4,8 +4,14 @@ import { colors } from "@/constants/Colors"
 import { Fragment } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
+import { useRouter } from "expo-router"
 
 export default function LoginScreen() {
+	const router = useRouter()
+
+	const gotoHome = () => {
+		router.replace("/(tabs)")
+	}
 	return (
 		<Fragment>
 			<View style={styles.header}>
@@ -19,7 +25,7 @@ export default function LoginScreen() {
 				placeholder='enter your password'
 			/>
 			<View>
-				<Pressable style={styles.button}>
+				<Pressable style={styles.button} onPress={gotoHome}>
 					<XText style={styles.buttonText}>login</XText>
 				</Pressable>
 				<Pressable style={styles.button}>

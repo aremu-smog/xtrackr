@@ -17,7 +17,6 @@ export default function TabLayout() {
 				tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
 				headerShown: false,
 				tabBarButton: HapticTab,
-
 				tabBarActiveBackgroundColor: colors.black,
 				tabBarInactiveBackgroundColor: colors.black,
 				tabBarLabel: () => null,
@@ -43,6 +42,7 @@ export default function TabLayout() {
 			{tabs.map(tab => {
 				return (
 					<Tabs.Screen
+						key={`tab-${tab.name}`}
 						name={tab.name}
 						options={{
 							tabBarIcon: ({ color, focused }) => (
@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
 	icon: {
 		width: 40,
 		height: 40,
+		opacity: 0.8,
 	},
 })

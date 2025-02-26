@@ -3,6 +3,7 @@ import { XText } from "@/components/XText"
 import { Link } from "expo-router"
 import { colors } from "@/constants/Colors"
 import { Fragment } from "react"
+import LottieView from "lottie-react-native"
 
 export default function SplashScreen() {
 	return (
@@ -15,6 +16,13 @@ export default function SplashScreen() {
 					/>
 
 					<View style={styles.imageWrapper}>
+						<LottieView
+							autoPlay
+							speed={0.4}
+							style={styles.lottie}
+							source={require("@/assets/lottie/swirl.json")}
+						/>
+
 						<Image
 							style={styles.image}
 							source={require("@/assets/images/splash/subscriptions.png")}
@@ -67,9 +75,18 @@ const styles = StyleSheet.create({
 	imageWrapper: {
 		justifyContent: "center",
 		alignItems: "center",
+		position: "relative",
+		width: "80%",
+		alignSelf: "center",
+		marginTop: 54,
 	},
 	image: {
 		width: 320,
 		height: 320,
+	},
+	lottie: {
+		width: 450,
+		height: 450,
+		position: "absolute",
 	},
 })

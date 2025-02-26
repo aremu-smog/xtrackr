@@ -3,7 +3,7 @@ import { useFonts } from "expo-font"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { StatusBar } from "expo-status-bar"
-import { useEffect } from "react"
+import { Fragment, useEffect } from "react"
 import "react-native-reanimated"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -26,21 +26,25 @@ export default function RootLayout() {
 
 	return (
 		<ThemeProvider value={DarkTheme}>
-			<Stack>
-				<Stack.Screen name='index' options={{ headerShown: false }} />
-				<Stack.Screen
-					name='(auth)'
-					options={{
-						headerShown: false,
-						presentation: "transparentModal",
-						animation: "fade",
-					}}
-				/>
-				<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-				<Stack.Screen name='+not-found' />
-			</Stack>
+			<Fragment>
+				<Stack>
+					<Stack.Screen name='index' options={{ headerShown: false }} />
+					<Stack.Screen
+						name='(auth)'
+						options={{
+							headerShown: false,
+							presentation: "transparentModal",
+							animation: "fade",
+						}}
+					/>
+					<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+					<Stack.Screen name='+not-found' />
+				</Stack>
 
-			<StatusBar style='auto' />
+				<StatusBar style='light' />
+			</Fragment>
 		</ThemeProvider>
 	)
+}
+{
 }
