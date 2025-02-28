@@ -1,9 +1,8 @@
-import { Pressable, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
 import { Fragment, useState } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
-import { Input } from "@/components/ui/Input"
 import { SignupStep } from "@/screens/signup/signup.type"
 import { signupSteps } from "@/screens/signup/constants"
 

@@ -38,10 +38,10 @@ export default function SplashScreen() {
 						subscriptions in one place.
 					</XText>
 					<View style={styles.links}>
-						<Link href='/(auth)/signup'>
+						<Link href='/(modal)/signup'>
 							<XText style={styles.link}>signup</XText>
 						</Link>
-						<Link href='/(auth)/login'>
+						<Link href='/(modal)/login'>
 							<XText style={styles.link}>login</XText>
 						</Link>
 					</View>

@@ -30,7 +30,7 @@ export default function RootLayout() {
 				<Stack>
 					<Stack.Screen name='index' options={{ headerShown: false }} />
 					<Stack.Screen
-						name='(auth)'
+						name='(modal)'
 						options={{
 							headerShown: false,
 							presentation: "transparentModal",

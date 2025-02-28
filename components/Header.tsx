@@ -2,7 +2,7 @@ import { View, Image, StyleSheet } from "react-native"
 
 export const Header = () => {
 	return (
-		<View>
+		<View style={styles.header}>
 			<Image source={require("@/assets/images/logo.png")} style={styles.logo} />
 		</View>
 	)
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
+		marginBottom: 40,
 	},
 	logo: {
 		width: 148,
