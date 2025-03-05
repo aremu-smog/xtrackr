@@ -1,27 +1,39 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { View, StyleSheet } from "react-native"
 import { XText } from "./XText"
 
 export interface RowItem {
 	id: string
 	title: string
-	description: string
+	description: string | ReactNode
+	titleVariant?: "default" | "small"
 }
 export const Row = ({ items }: { items: RowItem[] }) => {
 	return (
 		<View style={styles.row}>
 			{items.map((item, index) => {
+				const { titleVariant, description } = item
 				const isOdd = index % 2 === 1
+				const isSmallTitle = titleVariant === "small"
+				const isStringDescription = typeof description === "string"
 				return (
 					<View key={item.id}>
-						<XText style={[isOdd && { textAlign: "right" }]}>
+						<XText
+							style={[
+								isOdd && { textAlign: "right" },
+								isSmallTitle && styles.titleSmall,
+							]}>
 							{item.title}
 						</XText>
-						<XText
-							variant='body'
-							style={[styles.rowBody, isOdd && { textAlign: "right" }]}>
-							{item.description}
-						</XText>
+						{isStringDescription ? (
+							<XText
+								variant='body'
+								style={[styles.rowBody, isOdd && { textAlign: "right" }]}>
+								{item.description}
+							</XText>
+						) : (
+							description
+						)}
 					</View>
 				)
 			})}
@@ -31,7 +43,7 @@ export const Row = ({ items }: { items: RowItem[] }) => {
 
 const styles = StyleSheet.create({
 	row: {
-		marginVertical: 16,
+		marginBottom: 16,
 		borderBottomWidth: 1,
 		borderBottomColor: "#2C2B35",
 		paddingBottom: 16,
@@ -40,5 +52,11 @@ const styles = StyleSheet.create({
 	},
 	rowBody: {
 		opacity: 0.64,
+	},
+	titleSmall: {
+		fontSize: 12,
+		textTransform: "uppercase",
+		opacity: 0.4,
+		letterSpacing: 1.92,
 	},
 })

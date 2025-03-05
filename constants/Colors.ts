@@ -28,4 +28,5 @@ export const Colors = {
 export const colors = {
 	black: "#04030F",
 	white: "#ffffff",
+	red: "#ff0000",
 }

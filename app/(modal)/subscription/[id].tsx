@@ -3,7 +3,7 @@ import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
 import { Fragment } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
-import { useLocalSearchParams } from "expo-router"
+import { Link, useLocalSearchParams } from "expo-router"
 import { Row } from "@/components/Row"
 
 export default function SubscriptionScreen() {
@@ -29,6 +29,45 @@ export default function SubscriptionScreen() {
 					},
 				]}
 			/>
+			<Row
+				items={[
+					{
+						id: "netflix-link",
+						title: "link",
+						titleVariant: "small",
+						description: "netflix.com/pricing",
+					},
+				]}
+			/>
+			<Row
+				items={[
+					{
+						id: "netflix-description",
+						title: "description",
+						titleVariant: "small",
+						description:
+							"netflix is a global streaming entertainment service offering movies, tv series, and games, with unlimited viewing on any internet-connected screen for an affordable, no-commitment monthly fee.",
+					},
+				]}
+			/>
+			<Row
+				items={[
+					{
+						id: "netflix-status",
+						title: "STATUS",
+						titleVariant: "small",
+						description: "active",
+					},
+				]}
+			/>
+			<View style={styles.links}>
+				<Link href={"/"}>
+					<XText style={styles.link}>edit</XText>
+				</Link>
+				<Link href={"/"}>
+					<XText style={[styles.link, styles.delete]}>delete</XText>
+				</Link>
+			</View>
 		</Fragment>
 	)
 }
@@ -53,5 +92,19 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		gap: 24,
 		marginTop: 24,
+	},
+	links: {
+		flexDirection: "row",
+		gap: 24,
+		marginTop: 12,
+	},
+	link: {
+		textDecorationStyle: "solid",
+		textDecorationColor: colors.white,
+		textDecorationLine: "underline",
+	},
+	delete: {
+		color: colors.red,
+		textDecorationColor: colors.red,
 	},
 })
