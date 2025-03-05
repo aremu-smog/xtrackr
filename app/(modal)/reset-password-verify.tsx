@@ -9,25 +9,30 @@ import { useRouter } from "expo-router"
 export default function ForgotPasswordScreen() {
 	const router = useRouter()
 
-	const gotoVerifyscreen = () => {
-		router.replace("/(modal)/reset-password-verify")
+	const gotoNewPassword = () => {
+		router.replace("/(modal)/new-password")
 	}
 	return (
 		<Fragment>
 			<View style={styles.header}>
 				<XText variant='header' style={styles.headerText}>
-					forgot password
+					check your email
 				</XText>
 				<CloseModalButton />
 			</View>
 			<XText variant='body' style={styles.description}>
-				enter the email address associated with your account and we will send
-				you a one-time password to reset your password.
+				enter the one-time password we sent to your email address. please be
+				sure to check your spam folder too.
 			</XText>
-			<Input label='Email' placeholder='enter email' />
+			<Input label='ONE-TIME PASSWORD' placeholder='enter otp' />
 
-			<Pressable style={styles.button} onPress={gotoVerifyscreen}>
-				<XText style={styles.buttonText}>send email</XText>
+			<Pressable style={styles.button} onPress={gotoNewPassword}>
+				<XText style={styles.buttonText}>verify email</XText>
+			</Pressable>
+			<Pressable style={styles.button} onPress={() => {}}>
+				<XText style={styles.buttonText} blurred={true}>
+					resend
+				</XText>
 			</Pressable>
 		</Fragment>
 	)

@@ -1,34 +1,46 @@
 import { Pressable, StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
-import { useRouter } from "expo-router"
+import { Link } from "expo-router"
 
 export default function ForgotPasswordScreen() {
-	const router = useRouter()
+	const [isSuccess, setIsSuccess] = useState(false)
 
-	const gotoVerifyscreen = () => {
-		router.replace("/(modal)/reset-password-verify")
+	const handleDone = () => {
+		setIsSuccess(true)
 	}
 	return (
 		<Fragment>
 			<View style={styles.header}>
 				<XText variant='header' style={styles.headerText}>
-					forgot password
+					reset password
 				</XText>
 				<CloseModalButton />
 			</View>
-			<XText variant='body' style={styles.description}>
-				enter the email address associated with your account and we will send
-				you a one-time password to reset your password.
-			</XText>
-			<Input label='Email' placeholder='enter email' />
 
-			<Pressable style={styles.button} onPress={gotoVerifyscreen}>
-				<XText style={styles.buttonText}>send email</XText>
-			</Pressable>
+			{isSuccess ? (
+				<Fragment>
+					<XText variant='body' style={styles.message}>
+						your password has been reset successfully. you can now login to
+						xtrackr.
+					</XText>
+					<Link href='/(modal)/login' replace>
+						<XText style={styles.buttonText}>login</XText>
+					</Link>
+				</Fragment>
+			) : (
+				<Fragment>
+					<Input label='NEW PASSWORD' placeholder='enter password' />
+					<Input label='CONFIRM NEW PASSWORD' placeholder='confirm password' />
+
+					<Pressable style={styles.button} onPress={handleDone}>
+						<XText style={styles.buttonText}>reset</XText>
+					</Pressable>
+				</Fragment>
+			)}
 		</Fragment>
 	)
 }
@@ -60,5 +72,9 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		gap: 24,
 		marginTop: 24,
+	},
+	message: {
+		color: colors["white-64"],
+		marginBottom: 40,
 	},
 })
