@@ -17,7 +17,7 @@ export const Row = ({ items }: { items: RowItem[] }) => {
 				const isSmallTitle = titleVariant === "small"
 				const isStringDescription = typeof description === "string"
 				return (
-					<View key={item.id}>
+					<View style={styles.item} key={item.id}>
 						<XText
 							style={[
 								isOdd && { textAlign: "right" },
@@ -58,5 +58,8 @@ const styles = StyleSheet.create({
 		textTransform: "uppercase",
 		opacity: 0.4,
 		letterSpacing: 1.92,
+	},
+	item: {
+		width: "100%",
 	},
 })

@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header"
 import { PageWrapper } from "@/components/PageWrapper"
 import { Row } from "@/components/Row"
+import { Select } from "@/components/Select"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
 import { View, StyleSheet, ScrollView, Text } from "react-native"
@@ -20,7 +21,20 @@ export default function TabTwoScreen() {
 								title: "DEFAULT VIEW",
 								titleVariant: "small",
 								id: "layout-option",
-								description: "grid",
+								description: (
+									<Select
+										options={[
+											{
+												value: "grid",
+												label: "grid",
+											},
+											{
+												value: "list",
+												label: "list",
+											},
+										]}
+									/>
+								),
 							},
 						]}
 					/>
