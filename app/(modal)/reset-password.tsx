@@ -15,7 +15,9 @@ export default function ForgotPasswordScreen() {
 	return (
 		<Fragment>
 			<View style={styles.header}>
-				<XText variant='header'>forgot password</XText>
+				<XText variant='header' style={styles.headerText}>
+					forgot password
+				</XText>
 				<CloseModalButton />
 			</View>
 			<XText variant='body' style={styles.description}>
@@ -36,6 +38,9 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		marginBottom: 40,
+	},
+	headerText: {
+		width: "90%",
 	},
 	description: {
 		color: colors["white-64"],
