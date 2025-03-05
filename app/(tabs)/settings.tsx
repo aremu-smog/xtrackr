@@ -44,7 +44,25 @@ export default function TabTwoScreen() {
 								title: "Theme",
 								titleVariant: "small",
 								id: "theme-option",
-								description: "system default",
+								description: (
+									<Select
+										defaultSelected='dark'
+										options={[
+											{
+												value: "system-default",
+												label: "system default",
+											},
+											{
+												value: "light",
+												label: "light",
+											},
+											{
+												value: "dark",
+												label: "dark",
+											},
+										]}
+									/>
+								),
 							},
 						]}
 					/>
@@ -54,7 +72,29 @@ export default function TabTwoScreen() {
 								title: "Currency",
 								titleVariant: "small",
 								id: "currency-option",
-								description: "us dollar ($)",
+								description: (
+									<Select
+										defaultSelected='dark'
+										options={[
+											{
+												value: "us-dollar",
+												label: "us dollar ($)",
+											},
+											{
+												value: "euro",
+												label: "euros (€)",
+											},
+											{
+												value: "pounds",
+												label: "british pounds",
+											},
+											{
+												value: "naira",
+												label: "nigerian naira",
+											},
+										]}
+									/>
+								),
 							},
 						]}
 					/>

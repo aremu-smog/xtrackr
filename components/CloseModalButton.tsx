@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
 	pressable: {
 		flexShrink: 0,
 		flexGrow: 0,
+		width: 40,
+		height: 40,
 	},
 	icon: {
 		width: 40,

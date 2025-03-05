@@ -30,4 +30,5 @@ export const colors = {
 	white: "#ffffff",
 	red: "#ff0000",
 	"white-16": "#2C2B35",
+	"white-64": "#A5A4A9",
 }
