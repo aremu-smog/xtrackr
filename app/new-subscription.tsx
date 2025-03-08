@@ -7,6 +7,7 @@ import { LinearGradient } from "expo-linear-gradient"
 import { Input } from "@/components/ui/Input"
 import { Select, SelectOption } from "@/components/Select"
 import { XText } from "@/components/XText"
+import { Calendar, DollarCurrency } from "@/components/svgs"
 
 const categoryOptions: SelectOption[] = [
 	{
@@ -38,7 +39,7 @@ export default function NewSubscriptionScreen() {
 					defaultSelected='entertainment'
 					options={categoryOptions}
 				/>
-				<Input label='Amount' placeholder='' />
+				<Input label='Amount' placeholder='' icon={<DollarCurrency />} />
 				<Select
 					label='Category'
 					defaultSelected='entertainment'
@@ -49,7 +50,11 @@ export default function NewSubscriptionScreen() {
 					defaultSelected={frequencyOptions[0].value}
 					options={frequencyOptions}
 				/>
-				<Input label='BILLING DATE (DD/MM/YY)' placeholder='' />
+				<Input
+					label='BILLING DATE (DD/MM/YY)'
+					placeholder=''
+					icon={<Calendar />}
+				/>
 				<Input label='Link' placeholder='e.g netflix.com' />
 			</ScrollView>
 			<LinearGradient
