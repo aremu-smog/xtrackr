@@ -59,7 +59,5 @@ const styles = StyleSheet.create({
 		opacity: 0.4,
 		letterSpacing: 1.92,
 	},
-	item: {
-		width: "100%",
-	},
+	item: {},
 })
