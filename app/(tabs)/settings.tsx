@@ -12,102 +12,76 @@ export default function TabTwoScreen() {
 			<Header />
 			<ScrollView
 				showsVerticalScrollIndicator={false}
-				style={styles.scrollView}>
+				contentContainerStyle={styles.scrollView}>
 				<XText blurred={true}>options</XText>
 				<View>
-					<Row
-						items={[
-							{
-								title: "DEFAULT VIEW",
-								titleVariant: "small",
-								id: "layout-option",
-								description: (
-									<Select
-										options={[
-											{
-												value: "grid",
-												label: "grid",
-											},
-											{
-												value: "list",
-												label: "list",
-											},
-										]}
-									/>
-								),
-							},
-						]}
-					/>
-					<Row
-						items={[
-							{
-								title: "Theme",
-								titleVariant: "small",
-								id: "theme-option",
-								description: (
-									<Select
-										defaultSelected='dark'
-										options={[
-											{
-												value: "system-default",
-												label: "system default",
-											},
-											{
-												value: "light",
-												label: "light",
-											},
-											{
-												value: "dark",
-												label: "dark",
-											},
-										]}
-									/>
-								),
-							},
-						]}
-					/>
-					<Row
-						items={[
-							{
-								title: "Currency",
-								titleVariant: "small",
-								id: "currency-option",
-								description: (
-									<Select
-										defaultSelected='dark'
-										options={[
-											{
-												value: "us-dollar",
-												label: "us dollar ($)",
-											},
-											{
-												value: "euro",
-												label: "euros (€)",
-											},
-											{
-												value: "pounds",
-												label: "british pounds",
-											},
-											{
-												value: "naira",
-												label: "nigerian naira",
-											},
-										]}
-									/>
-								),
-							},
-						]}
-					/>
-					<Row
-						items={[
-							{
-								title: "EXCHANGE RATES (TO USD)",
-								titleVariant: "small",
-								id: "exchange-rate",
-								description: <ExchangeRates />,
-							},
-						]}
-					/>
+					<View style={styles.form}>
+						<Select
+							label='default view'
+							options={[
+								{
+									value: "grid",
+									label: "grid",
+								},
+								{
+									value: "list",
+									label: "list",
+								},
+							]}
+						/>
+
+						<Select
+							label='theme'
+							defaultSelected='dark'
+							options={[
+								{
+									value: "system-default",
+									label: "system default",
+								},
+								{
+									value: "light",
+									label: "light",
+								},
+								{
+									value: "dark",
+									label: "dark",
+								},
+							]}
+						/>
+
+						<Select
+							label='currency'
+							defaultSelected='dark'
+							options={[
+								{
+									value: "us-dollar",
+									label: "us dollar ($)",
+								},
+								{
+									value: "euro",
+									label: "euros (€)",
+								},
+								{
+									value: "pounds",
+									label: "british pounds",
+								},
+								{
+									value: "naira",
+									label: "nigerian naira",
+								},
+							]}
+						/>
+						<Row
+							items={[
+								{
+									title: "EXCHANGE RATES (TO USD)",
+									titleVariant: "small",
+									id: "exchange-rate",
+									description: <ExchangeRates />,
+								},
+							]}
+						/>
+					</View>
 				</View>
 				<XText style={styles.description} variant='body'>
 					the exchange rates are gotten from{" "}
@@ -164,7 +138,11 @@ const ExchangeRate = ({ currency, amount }: ExchangeRateItem) => {
 
 const styles = StyleSheet.create({
 	scrollView: {
-		marginBottom: 72,
+		paddingBottom: 84,
+	},
+	form: {
+		gap: 16,
+		marginTop: 32,
 	},
 	row: {
 		flexDirection: "row",

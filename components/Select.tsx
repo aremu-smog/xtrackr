@@ -5,7 +5,7 @@ import { BlurView } from "expo-blur"
 import { colors } from "@/constants/Colors"
 import { CaretDownIcon, CrossIcon } from "./svgs"
 
-interface SelectOption {
+export interface SelectOption {
 	label: string | ReactNode
 	value: string
 }
@@ -13,9 +13,10 @@ interface SelectOption {
 interface SelectProps {
 	defaultSelected?: string
 	options: SelectOption[]
+	label: string
 }
 export const Select = (props: SelectProps) => {
-	const { defaultSelected = "", options } = props
+	const { defaultSelected = "", options, label } = props
 	const [selectedValue, setSelectedValue] = useState(defaultSelected)
 	const [isVisible, setIsVisible] = useState(false)
 
@@ -24,7 +25,8 @@ export const Select = (props: SelectProps) => {
 	}
 	const selectedOption = options.find(option => option.value === selectedValue)
 	return (
-		<Fragment>
+		<View>
+			{label && <XText variant='label'>{label}</XText>}
 			<Pressable
 				style={styles.selectedOption}
 				onPress={() => {
@@ -37,7 +39,9 @@ export const Select = (props: SelectProps) => {
 				<BlurView tint='extraLight' style={styles.blurView} intensity={20}>
 					<View style={styles.container}>
 						<View style={styles.modalHeader}>
-							<XText>default view</XText>
+							<XText style={{ textTransform: "lowercase" }}>
+								{label ?? "default view"}
+							</XText>
 							<Pressable onPress={closeModal}>
 								<CrossIcon />
 							</Pressable>
@@ -69,7 +73,7 @@ export const Select = (props: SelectProps) => {
 					</View>
 				</BlurView>
 			</Modal>
-		</Fragment>
+		</View>
 	)
 }
 
@@ -115,6 +119,9 @@ const styles = StyleSheet.create({
 		width: "100%",
 		flexDirection: "row",
 		justifyContent: "space-between",
+		borderColor: colors["white-16"],
+		borderBottomWidth: 1,
+		paddingBottom: 16,
 	},
 	radio: {
 		height: 30,

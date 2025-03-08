@@ -1,19 +1,27 @@
 import { useState } from "react"
 import { TextInput, StyleSheet, View, TextInputProps } from "react-native"
 import { XText } from "../XText"
+import { colors } from "@/constants/Colors"
 
 type InputProps = TextInputProps & { label: string }
 export const Input = ({ label, ...rest }: InputProps) => {
 	const [value, setValue] = useState("")
+	const [isFocused, setIsFocused] = useState(false)
 
 	return (
 		<View style={styles.wrapper}>
 			<XText variant='label'>{label}</XText>
 			<TextInput
-				style={styles.input}
+				onFocus={() => {
+					setIsFocused(true)
+				}}
+				onBlur={() => {
+					setIsFocused(false)
+				}}
+				style={[styles.input, isFocused && styles.focus]}
 				value={value}
 				{...rest}
-				onChange={setValue}
+				onChangeText={setValue}
 			/>
 		</View>
 	)
@@ -29,5 +37,8 @@ const styles = StyleSheet.create({
 		fontWeight: 300,
 		borderBottomColor: "#FFFFFF29",
 		marginTop: -8,
+	},
+	focus: {
+		borderBottomColor: colors.white,
 	},
 })
