@@ -11,13 +11,13 @@ export const expenseCategories: ExpenseCategory[] = [
 		label: "internet",
 		color: "#FF0000",
 		color2: "#2C040E",
-		amount: 1600,
+		amount: 1630,
 	},
 	{
 		label: "professional",
 		color: "#068F33",
 		color2: "#041A15",
-		amount: 2000,
+		amount: 2520,
 	},
 	{
 		label: "learning",

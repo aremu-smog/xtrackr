@@ -5,6 +5,7 @@ import { expenseCategories } from "../config/expense-categories"
 import { colors } from "@/constants/Colors"
 import { ExpenseCategory } from "../types/expense-category.type"
 import { Fragment } from "react"
+import { formatNumber } from "@/utils"
 
 export const SpendingChart = () => {
 	const highestExpense = [...expenseCategories].sort((a, b) => {
@@ -29,7 +30,7 @@ export const SpendingChart = () => {
 								},
 							]}>
 							<XText variant='body' style={{ textAlign: "center" }}>
-								{category.amount}
+								{formatNumber(category.amount)}
 							</XText>
 						</LinearGradient>
 					)
