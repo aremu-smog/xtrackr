@@ -4,8 +4,7 @@ import { XText } from "../XText"
 import { colors } from "@/constants/Colors"
 
 type InputProps = TextInputProps & { label: string; icon?: ReactNode }
-export const Input = ({ label, icon, ...rest }: InputProps) => {
-	const [value, setValue] = useState("")
+export const Input = ({ label, icon, value, ...rest }: InputProps) => {
 	const [isFocused, setIsFocused] = useState(false)
 
 	return (
@@ -20,9 +19,7 @@ export const Input = ({ label, icon, ...rest }: InputProps) => {
 						setIsFocused(false)
 					}}
 					style={[styles.input, isFocused && styles.focus]}
-					value={value}
 					{...rest}
-					onChangeText={setValue}
 				/>
 				{icon && <View style={styles.iconContainer}>{icon}</View>}
 			</View>

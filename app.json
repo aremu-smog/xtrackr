@@ -38,6 +38,13 @@
 					"resizeMode": "contain",
 					"backgroundColor": "#04030F"
 				}
+			],
+			[
+				"expo-secure-store",
+				{
+					"configureAndroidBackup": true,
+					"faceIDPermission": "Allow xtrackr to access your Face ID biometric data."
+				}
 			]
 		],
 		"experiments": {
