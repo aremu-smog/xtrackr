@@ -4,13 +4,18 @@ import { Pressable, View, StyleSheet } from "react-native"
 import { SignupComponentProps } from "./signup.type"
 import { colors } from "@/constants/Colors"
 import { useRouter } from "expo-router"
+import { useVerifyNewUser } from "./hooks"
+import { useState } from "react"
 
 export const SignupVerifyEmail = ({ setStep }: SignupComponentProps) => {
 	const router = useRouter()
+	const [token, setToken] = useState("")
 	const gotoSignup = () => {
 		router.dismissAll()
 		router.push("/(tabs)")
 	}
+
+	const { isLoading, verifyOtp } = useVerifyNewUser({ onSuccess: gotoSignup })
 	return (
 		<View>
 			<XText variant='body' style={styles.info}>
@@ -22,9 +27,18 @@ export const SignupVerifyEmail = ({ setStep }: SignupComponentProps) => {
 				label='One-time Password'
 				secureTextEntry={true}
 				placeholder='enter otp'
+				value={token}
+				onChangeText={setToken}
 			/>
-			<Pressable style={styles.button} onPress={gotoSignup}>
-				<XText style={styles.buttonText}>verify email</XText>
+			<Pressable
+				disabled={isLoading}
+				style={styles.button}
+				onPress={() => {
+					verifyOtp(token, "mymen@sharklasers.com")
+				}}>
+				<XText style={styles.buttonText}>
+					verify email {isLoading && "..."}
+				</XText>
 			</Pressable>
 		</View>
 	)

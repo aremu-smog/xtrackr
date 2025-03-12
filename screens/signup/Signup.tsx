@@ -13,7 +13,7 @@ export const SignupSetupStep = ({ setStep }: SignupComponentProps) => {
 	const gotoVerify = () => {
 		setStep("verify-mail")
 	}
-	const { registerUser } = useRegisterUser({ onSuccess: gotoVerify })
+	const { registerUser, isLoading } = useRegisterUser({ onSuccess: gotoVerify })
 
 	const handleFormSubmit = () => {
 		if (!email || !password) {
@@ -32,6 +32,8 @@ export const SignupSetupStep = ({ setStep }: SignupComponentProps) => {
 				onChangeText={setEmail}
 				inputMode='email'
 				keyboardType='email-address'
+				autoCapitalize='none'
+				autoCorrect={false}
 			/>
 			<Input
 				label='Password'
@@ -40,8 +42,13 @@ export const SignupSetupStep = ({ setStep }: SignupComponentProps) => {
 				value={password}
 				onChangeText={setPassword}
 			/>
-			<Pressable style={styles.button} onPress={handleFormSubmit}>
-				<XText style={styles.buttonText}>signup</XText>
+			<Pressable
+				disabled={isLoading}
+				style={styles.button}
+				onPress={handleFormSubmit}>
+				<XText style={styles.buttonText}>
+					{isLoading ? "loading.." : "signup"}
+				</XText>
 			</Pressable>
 		</View>
 	)

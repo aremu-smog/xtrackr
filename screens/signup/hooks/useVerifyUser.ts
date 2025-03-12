@@ -1,17 +1,18 @@
 import { supabase } from "@/api"
 import { useState } from "react"
 
-export const useRegisterUser = ({ onSuccess }: { onSuccess: () => void }) => {
+export const useVerifyNewUser = ({ onSuccess }: { onSuccess: () => void }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [data, setData] = useState<null | {}>(null)
 	const [error, setError] = useState<null | {}>(null)
-	const registerUser = async (email: string, password: string) => {
+	const verifyOtp = async (token: string, email: string) => {
 		setIsLoading(true)
 
 		try {
-			const { data, error } = await supabase.auth.signUp({
+			const { data, error } = await supabase.auth.verifyOtp({
+				token,
 				email,
-				password,
+				type: "signup",
 			})
 
 			if (data) {
@@ -30,7 +31,7 @@ export const useRegisterUser = ({ onSuccess }: { onSuccess: () => void }) => {
 	}
 
 	return {
-		registerUser,
+		verifyOtp,
 		isLoading,
 		setIsLoading,
 	}
