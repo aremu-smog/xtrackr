@@ -1,5 +1,5 @@
-import { Slot, Tabs } from "expo-router"
-import React, { Fragment } from "react"
+import { Slot, Tabs, useRouter } from "expo-router"
+import React, { Fragment, useEffect } from "react"
 import { Image, StyleSheet, Platform } from "react-native"
 
 import { HapticTab } from "@/components/HapticTab"
@@ -7,10 +7,19 @@ import { colors, Colors } from "@/constants/Colors"
 import { useColorScheme } from "@/hooks/useColorScheme"
 import { TabSymbol } from "@/components/ui/TabSymbol"
 import { tabs } from "@/constants/tabs"
+import { useAuthContext } from "@/context"
 
 export default function TabLayout() {
 	const colorScheme = useColorScheme()
 
+	const { session } = useAuthContext()
+	const router = useRouter()
+	useEffect(() => {
+		if (!session) {
+			router.dismissAll()
+			router.replace("/")
+		}
+	}, [session])
 	return (
 		<Fragment>
 			<Tabs

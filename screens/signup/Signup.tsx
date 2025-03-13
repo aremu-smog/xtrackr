@@ -3,8 +3,9 @@ import { XText } from "@/components/XText"
 import { Pressable, View, StyleSheet, Alert } from "react-native"
 import { SignupComponentProps } from "./signup.type"
 import { colors } from "@/constants/Colors"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRegisterUser } from "./hooks"
+import { useAuthContext } from "@/context"
 
 export const SignupSetupStep = ({ setStep }: SignupComponentProps) => {
 	const [email, setEmail] = useState("")
@@ -13,6 +14,13 @@ export const SignupSetupStep = ({ setStep }: SignupComponentProps) => {
 	const gotoVerify = () => {
 		setStep("verify-mail")
 	}
+	const { session } = useAuthContext()
+
+	useEffect(() => {
+		if (session && !session.user.email_confirmed_at) {
+			gotoVerify()
+		}
+	}, [session])
 	const { registerUser, isLoading } = useRegisterUser({ onSuccess: gotoVerify })
 
 	const handleFormSubmit = () => {

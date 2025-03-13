@@ -1,3 +1,4 @@
+import { AuthContextProvider } from "@/context"
 import { DarkTheme, ThemeProvider } from "@react-navigation/native"
 import { useFonts } from "expo-font"
 import { Stack } from "expo-router"
@@ -25,29 +26,31 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ThemeProvider value={DarkTheme}>
-			<Fragment>
-				<Stack>
-					<Stack.Screen name='index' options={{ headerShown: false }} />
-					<Stack.Screen
-						name='(modal)'
-						options={{
-							headerShown: false,
-							presentation: "transparentModal",
-							animation: "fade",
-						}}
-					/>
-					<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-					<Stack.Screen name='+not-found' />
-					<Stack.Screen
-						name='new-subscription'
-						options={{ headerShown: false }}
-					/>
-				</Stack>
+		<AuthContextProvider>
+			<ThemeProvider value={DarkTheme}>
+				<Fragment>
+					<Stack>
+						<Stack.Screen name='index' options={{ headerShown: false }} />
+						<Stack.Screen
+							name='(modal)'
+							options={{
+								headerShown: false,
+								presentation: "transparentModal",
+								animation: "fade",
+							}}
+						/>
+						<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+						<Stack.Screen name='+not-found' />
+						<Stack.Screen
+							name='new-subscription'
+							options={{ headerShown: false }}
+						/>
+					</Stack>
 
-				<StatusBar style='light' />
-			</Fragment>
-		</ThemeProvider>
+					<StatusBar style='light' />
+				</Fragment>
+			</ThemeProvider>
+		</AuthContextProvider>
 	)
 }
 {

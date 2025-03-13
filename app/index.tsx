@@ -1,11 +1,19 @@
 import { Image, StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
-import { Link } from "expo-router"
+import { Link, useRouter } from "expo-router"
 import { colors } from "@/constants/Colors"
-import { Fragment } from "react"
+import { Fragment, useEffect } from "react"
 import LottieView from "lottie-react-native"
+import { useAuthContext } from "@/context"
 
 export default function SplashScreen() {
+	const { session } = useAuthContext()
+	const router = useRouter()
+	useEffect(() => {
+		if (session) {
+			router.replace("/(tabs)")
+		}
+	}, [session])
 	return (
 		<Fragment>
 			<View style={styles.container}>

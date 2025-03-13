@@ -1,9 +1,32 @@
-import { createContext, ReactNode, useContext } from "react"
+import { supabase } from "@/api"
+import { Session } from "@supabase/supabase-js"
+import { useRouter } from "expo-router"
+import {
+	createContext,
+	ReactNode,
+	useContext,
+	useEffect,
+	useState,
+} from "react"
 
-const AuthContext = createContext(null)
+type SessionState = Session | null
+const AuthContext = createContext<{ session: SessionState } | null>(null)
 
-const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-	return <AuthContext.Provider value={null}>{children}</AuthContext.Provider>
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+	const [session, setSession] = useState<SessionState>(null)
+
+	useEffect(() => {
+		supabase.auth.onAuthStateChange((event, session) => {
+			if (event === "SIGNED_OUT") {
+				setSession(null)
+			} else if (session) {
+				setSession(session)
+			}
+		})
+	}, [])
+	return (
+		<AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
+	)
 }
 
 export const useAuthContext = () => {
