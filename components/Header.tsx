@@ -11,7 +11,7 @@ export const Header = () => {
 					style={styles.logo}
 				/>
 			</Link>
-			<Link href='/new-subscription' style={styles.plusIcon}>
+			<Link href='/(modal)/add-subscription' style={styles.plusIcon}>
 				<CrossIcon width={28} height={32} />
 			</Link>
 		</View>

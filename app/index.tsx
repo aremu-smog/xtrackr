@@ -5,12 +5,16 @@ import { colors } from "@/constants/Colors"
 import { Fragment, useEffect } from "react"
 import LottieView from "lottie-react-native"
 import { useAuthContext } from "@/context"
+import { useRouteInfo } from "expo-router/build/hooks"
 
 export default function SplashScreen() {
 	const { session } = useAuthContext()
 	const router = useRouter()
+
+	const routeInfo = useRouteInfo()
+
 	useEffect(() => {
-		if (session) {
+		if (session && !routeInfo.pathname.includes("password")) {
 			router.replace("/(tabs)")
 		}
 	}, [session])

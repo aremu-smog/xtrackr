@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
 	useEffect(() => {
 		supabase.auth.onAuthStateChange((event, session) => {
-			if (event === "SIGNED_OUT") {
+			if (event === "SIGNED_OUT" || event === "PASSWORD_RECOVERY") {
 				setSession(null)
 			} else if (session) {
 				setSession(session)

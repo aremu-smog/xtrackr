@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input"
 import { Select, SelectOption } from "@/components/Select"
 import { XText } from "@/components/XText"
 import { Calendar, DollarCurrency } from "@/components/svgs"
+import { Link } from "expo-router"
 
 const categoryOptions: SelectOption[] = [
 	{
@@ -60,9 +61,9 @@ export default function NewSubscriptionScreen() {
 			<LinearGradient
 				colors={["transparent", colors.black]}
 				style={styles.links}>
-				<Pressable>
+				<Link href='/(tabs)' replace>
 					<XText style={styles.link}>cancel</XText>
-				</Pressable>
+				</Link>
 				<Pressable>
 					<XText style={styles.link}>save</XText>
 				</Pressable>

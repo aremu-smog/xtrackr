@@ -1,12 +1,19 @@
+import { supabase } from "@/api"
 import { Header } from "@/components/Header"
 import { PageWrapper } from "@/components/PageWrapper"
 import { Row } from "@/components/Row"
 import { Select } from "@/components/Select"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
-import { View, StyleSheet, ScrollView, Text } from "react-native"
+import { useRouter } from "expo-router"
+import { View, StyleSheet, ScrollView, Text, Pressable } from "react-native"
 
-export default function TabTwoScreen() {
+export default function SettingsScreen() {
+	const router = useRouter()
+	const logout = async () => {
+		const { error } = await supabase.auth.signOut()
+		router.replace("/")
+	}
 	return (
 		<PageWrapper>
 			<Header />
@@ -88,6 +95,11 @@ export default function TabTwoScreen() {
 					<Text style={styles.dataSource}>google</Text> finance. they are
 					consistently updated but may not accurately reflect market data.
 				</XText>
+				<Pressable onPress={logout} style={styles.loginButton}>
+					<XText variant='header' style={styles.loginButtonText}>
+						logout
+					</XText>
+				</Pressable>
 			</ScrollView>
 		</PageWrapper>
 	)
@@ -164,5 +176,12 @@ const styles = StyleSheet.create({
 	},
 	dataSource: {
 		color: colors.white,
+	},
+	loginButton: {
+		marginTop: 16,
+	},
+	loginButtonText: {
+		textDecorationStyle: "solid",
+		textDecorationLine: "underline",
 	},
 })

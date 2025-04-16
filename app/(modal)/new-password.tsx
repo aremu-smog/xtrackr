@@ -1,16 +1,36 @@
-import { Pressable, StyleSheet, View } from "react-native"
+import { Alert, Pressable, StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
 import { Fragment, useState } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
 import { Link } from "expo-router"
+import { supabase } from "@/api"
 
 export default function ForgotPasswordScreen() {
 	const [isSuccess, setIsSuccess] = useState(false)
+	const [password, setPassword] = useState("")
+	const [passwordAgain, setPasswordAgain] = useState("")
 
-	const handleDone = () => {
-		setIsSuccess(true)
+	const resetPassword = async () => {
+		if (!password || password !== passwordAgain) {
+			Alert.alert("Kindly ensure that passwords match")
+			return
+		}
+
+		const { error, data } = await supabase.auth.updateUser({
+			password,
+		})
+
+		if (error) {
+			Alert.alert("Unable to reset password, please try again")
+			return
+		}
+
+		if (data) {
+			await supabase.auth.signOut()
+			setIsSuccess(true)
+		}
 	}
 	return (
 		<Fragment>
@@ -33,10 +53,20 @@ export default function ForgotPasswordScreen() {
 				</Fragment>
 			) : (
 				<Fragment>
-					<Input label='NEW PASSWORD' placeholder='enter password' />
-					<Input label='CONFIRM NEW PASSWORD' placeholder='confirm password' />
+					<Input
+						label='NEW PASSWORD'
+						placeholder='enter password'
+						value={password}
+						onChangeText={setPassword}
+					/>
+					<Input
+						label='CONFIRM NEW PASSWORD'
+						placeholder='confirm password'
+						value={passwordAgain}
+						onChangeText={setPasswordAgain}
+					/>
 
-					<Pressable style={styles.button} onPress={handleDone}>
+					<Pressable style={styles.button} onPress={resetPassword}>
 						<XText style={styles.buttonText}>reset</XText>
 					</Pressable>
 				</Fragment>

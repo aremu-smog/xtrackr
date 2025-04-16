@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header"
 import { PageWrapper } from "@/components/PageWrapper"
 import { Link } from "expo-router"
-import { Image, Pressable, SafeAreaView, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 
 export default function TabTwoScreen() {
 	return (

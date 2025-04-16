@@ -11,9 +11,6 @@ export default function SignupScreen() {
 
 	const currentStep = signupSteps[step]
 
-	const gotoVerify = () => {
-		setStep("verify-mail")
-	}
 	return (
 		<Fragment>
 			<View style={styles.header}>
