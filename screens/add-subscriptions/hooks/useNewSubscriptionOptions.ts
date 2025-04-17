@@ -28,7 +28,7 @@ export const useNewSubscriptionOptions = () => {
 		})
 	}
 	const gotoManualPage = () => {
-		router.navigate("/new-subscription")
+		router.replace("/new-subscription")
 	}
 	const selectImages = () => {
 		ImagePicker.launchImageLibraryAsync({

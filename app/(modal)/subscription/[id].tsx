@@ -61,10 +61,10 @@ export default function SubscriptionScreen() {
 				]}
 			/>
 			<View style={styles.links}>
-				<Link href={"/"}>
+				<Link href={"/new-subscription"} replace>
 					<XText style={styles.link}>edit</XText>
 				</Link>
-				<Link href={"/"}>
+				<Link href={"/new-subscription"}>
 					<XText style={[styles.link, styles.delete]}>delete</XText>
 				</Link>
 			</View>
