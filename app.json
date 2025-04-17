@@ -40,6 +40,12 @@
 					"configureAndroidBackup": true,
 					"faceIDPermission": "Allow xtrackr to access your Face ID biometric data."
 				}
+			],
+			[
+				"expo-image-picker",
+				{
+					"photosPermission": "xtrackr accesses your photos in order to analyze financial statements."
+				}
 			]
 		],
 		"experiments": {

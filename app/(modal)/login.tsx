@@ -1,4 +1,11 @@
-import { Alert, Pressable, StyleSheet, View } from "react-native"
+import {
+	Alert,
+	KeyboardAvoidingView,
+	Platform,
+	Pressable,
+	StyleSheet,
+	View,
+} from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
 import { Fragment, useState } from "react"

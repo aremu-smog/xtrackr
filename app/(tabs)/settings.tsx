@@ -12,7 +12,6 @@ export default function SettingsScreen() {
 	const router = useRouter()
 	const logout = async () => {
 		const { error } = await supabase.auth.signOut()
-		router.replace("/")
 	}
 	return (
 		<PageWrapper>
