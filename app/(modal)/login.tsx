@@ -1,11 +1,4 @@
-import {
-	Alert,
-	KeyboardAvoidingView,
-	Platform,
-	Pressable,
-	StyleSheet,
-	View,
-} from "react-native"
+import { Alert, Pressable, StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
 import { Fragment, useState } from "react"
@@ -13,18 +6,41 @@ import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
 import { Link, useRouter } from "expo-router"
 import { supabase } from "@/api"
+import { SubmitHandler, useForm } from "react-hook-form"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+
+const loginSchema = yup.object({
+	email: yup
+		.string()
+		.email("Kindly enter a valid emaill address")
+		.required("Please enter your email"),
+	password: yup
+		.string()
+		.required("Please enter your password")
+		.min(5, "Password must be at least 4 characters"),
+})
+
+type LoginForm = yup.InferType<typeof loginSchema>
 
 export default function LoginScreen() {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
 	const router = useRouter()
 
-	const login = async () => {
-		if (!email || !email) {
-			Alert.alert("Please enter username and password")
-			return
-		}
+	const {
+		control,
+		formState: { errors, isSubmitting, isValid },
+		handleSubmit,
+	} = useForm<LoginForm>({
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+		mode: "onBlur",
+		resolver: yupResolver(loginSchema),
+	})
 
+	const login: SubmitHandler<LoginForm> = async formData => {
+		const { email, password } = formData
 		const { data, error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
@@ -46,21 +62,28 @@ export default function LoginScreen() {
 				<XText variant='header'>login to xtrackr</XText>
 				<CloseModalButton />
 			</View>
+
 			<Input
 				label='Email'
 				placeholder='enter email'
-				value={email}
-				onChangeText={setEmail}
+				control={control}
+				textContentType='emailAddress'
+				autoCapitalize='none'
+				name='email'
 			/>
+
 			<Input
 				label='Password'
 				secureTextEntry={true}
 				placeholder='enter your password'
-				value={password}
-				onChangeText={setPassword}
+				control={control}
+				name='password'
 			/>
 			<View>
-				<Pressable style={styles.button} onPress={login}>
+				<Pressable
+					disabled={!isSubmitting || isValid}
+					style={styles.button}
+					onPress={handleSubmit(login)}>
 					<XText style={styles.buttonText}>login</XText>
 				</Pressable>
 				<Link href='/(modal)/reset-password' style={styles.button}>

@@ -1,24 +1,41 @@
 import { Alert, Pressable, StyleSheet, View } from "react-native"
 import { XText } from "@/components/XText"
 import { colors } from "@/constants/Colors"
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
 import { useRouter } from "expo-router"
 import { supabase } from "@/api"
+import * as yup from "yup"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+
+const resetPasswordSchema = yup.object({
+	email: yup
+		.string()
+		.email("Please enter a valid email address")
+		.required("Please enter your email"),
+})
+
+type ResetPassword = yup.InferType<typeof resetPasswordSchema>
 
 export default function ForgotPasswordScreen() {
 	const router = useRouter()
-	const [email, setEmail] = useState("")
 
-	const gotoVerifyscreen = async () => {
-		if (!email) {
-			Alert.alert("Kindly enter an email address")
-			return
-		}
-
+	const {
+		handleSubmit,
+		control,
+		formState: { isValid, isSubmitting },
+	} = useForm<ResetPassword>({
+		defaultValues: {
+			email: "",
+		},
+		mode: "onSubmit",
+		resolver: yupResolver(resetPasswordSchema),
+	})
+	const resetPassword: SubmitHandler<ResetPassword> = async formData => {
+		const { email } = formData
 		const { data, error } = await supabase.auth.resetPasswordForEmail(email)
-		console.log({ data, error })
 		if (error) {
 			Alert.alert("Unable to reset your password")
 			return
@@ -41,13 +58,18 @@ export default function ForgotPasswordScreen() {
 				you a one-time password to reset your password.
 			</XText>
 			<Input
+				control={control}
+				name='email'
 				label='Email'
-				value={email}
-				onChangeText={setEmail}
 				placeholder='enter email'
+				autoCapitalize='none'
+				textContentType='emailAddress'
 			/>
 
-			<Pressable style={styles.button} onPress={gotoVerifyscreen}>
+			<Pressable
+				disabled={!isValid || isSubmitting}
+				style={styles.button}
+				onPress={handleSubmit(resetPassword)}>
 				<XText style={styles.buttonText}>send email</XText>
 			</Pressable>
 		</Fragment>

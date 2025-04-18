@@ -6,17 +6,38 @@ import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
 import { Link } from "expo-router"
 import { supabase } from "@/api"
+import { yup } from "@/libs/yup"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 
+const newPasswordSchema: yup.ObjectSchema<{
+	password: string
+	passwordAgain: string
+}> = yup.object({
+	password: yup
+		.string()
+		.required("Please enter a new password")
+		.min(6, "Your password must be at least 6 characters"),
+	passwordAgain: yup
+		.string()
+		.oneOf([yup.ref("password")], "Passwords do not match")
+		.required("Please confirm your password"),
+})
+
+type NewPasswordForm = yup.InferType<typeof newPasswordSchema>
 export default function ForgotPasswordScreen() {
 	const [isSuccess, setIsSuccess] = useState(false)
-	const [password, setPassword] = useState("")
-	const [passwordAgain, setPasswordAgain] = useState("")
 
-	const resetPassword = async () => {
-		if (!password || password !== passwordAgain) {
-			Alert.alert("Kindly ensure that passwords match")
-			return
-		}
+	const {
+		handleSubmit,
+		formState: {},
+		control,
+	} = useForm<NewPasswordForm>({
+		resolver: yupResolver(newPasswordSchema),
+	})
+
+	const resetPassword: SubmitHandler<NewPasswordForm> = async formData => {
+		const { password } = formData
 
 		const { error, data } = await supabase.auth.updateUser({
 			password,
@@ -56,17 +77,19 @@ export default function ForgotPasswordScreen() {
 					<Input
 						label='NEW PASSWORD'
 						placeholder='enter password'
-						value={password}
-						onChangeText={setPassword}
+						control={control}
+						name='password'
 					/>
 					<Input
 						label='CONFIRM NEW PASSWORD'
 						placeholder='confirm password'
-						value={passwordAgain}
-						onChangeText={setPasswordAgain}
+						control={control}
+						name='passwordAgain'
 					/>
 
-					<Pressable style={styles.button} onPress={resetPassword}>
+					<Pressable
+						style={styles.button}
+						onPress={handleSubmit(resetPassword)}>
 						<XText style={styles.buttonText}>reset</XText>
 					</Pressable>
 				</Fragment>

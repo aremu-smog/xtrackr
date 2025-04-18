@@ -16,7 +16,7 @@ export default function TabLayout() {
 	const router = useRouter()
 	useEffect(() => {
 		if (!session) {
-			router.dismissAll()
+			router?.reload()
 			router.replace("/")
 		}
 	}, [session])

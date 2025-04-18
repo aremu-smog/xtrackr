@@ -6,23 +6,44 @@ import { CloseModalButton } from "@/components/CloseModalButton"
 import { Input } from "@/components/ui/Input"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { supabase } from "@/api"
+import * as yup from "yup"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 
+const otpSchema = yup.object({
+	token: yup
+		.string()
+		.required("Please enter your otp")
+		.min(6, "OTP must be of 6 characters"),
+})
+
+type OtpForm = yup.InferType<typeof otpSchema>
 export default function ForgotPasswordSVerifycreen() {
 	const router = useRouter()
 
 	const params = useLocalSearchParams()
-
 	const email = params.email as string
-	const [token, setToken] = useState("")
 
-	console.log({ email })
-	const verifyEmail = async () => {
+	const {
+		formState: { isValid, isSubmitting },
+		handleSubmit,
+		control,
+		setValue,
+	} = useForm<OtpForm>({
+		mode: "onSubmit",
+		defaultValues: {
+			token: "",
+		},
+		resolver: yupResolver(otpSchema),
+	})
+
+	const verifyEmail: SubmitHandler<OtpForm> = async formData => {
+		const { token } = formData
 		const { data, error } = await supabase.auth.verifyOtp({
 			email,
 			token,
-			type: "email",
+			type: "recovery",
 		})
-		console.log({ error, token, data })
 
 		if (error) {
 			Alert.alert("Unable to verify email")
@@ -44,7 +65,7 @@ export default function ForgotPasswordSVerifycreen() {
 
 		if (data) {
 			Alert.alert("New OTP sent to your mail")
-			setToken("")
+			setValue("token", "")
 		}
 	}
 	return (
@@ -60,13 +81,17 @@ export default function ForgotPasswordSVerifycreen() {
 				sure to check your spam folder too.
 			</XText>
 			<Input
+				control={control}
 				label='ONE-TIME PASSWORD'
 				placeholder='enter otp'
-				value={token}
-				onChangeText={setToken}
+				textContentType='oneTimeCode'
+				name='token'
 			/>
 
-			<Pressable style={styles.button} onPress={verifyEmail}>
+			<Pressable
+				disabled={!isValid || isSubmitting}
+				style={styles.button}
+				onPress={handleSubmit(verifyEmail)}>
 				<XText style={styles.buttonText}>verify email</XText>
 			</Pressable>
 			<Pressable style={styles.button} onPress={resendEmail}>
